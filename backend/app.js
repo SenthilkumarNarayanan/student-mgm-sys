@@ -7,21 +7,10 @@ const studentRoutes = require('./routes/studentRoutes');
 const app = express();
 
 // CORS configuration
-const corsOptions = {
-  origin: [
-    'https://student-mgm-sys-frontend.onrender.com',
-    'http://localhost:4200',
-    'http://localhost:3000'
-  ],
-  credentials: true,
-  optionsSuccessStatus: 200,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-};
-
-// Apply CORS
-app.use(cors(corsOptions));
-
+app.use(cors({
+  origin: 'https://student-mgm-sys-frontend.onrender.com',
+  credentials: true
+}));
 // Body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
