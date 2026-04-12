@@ -1,0 +1,27 @@
+services:
+  # Backend API Service
+  - type: web
+    name: student-management-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      # ... other env vars
+
+  # Frontend Static Site
+  - type: static
+    name: student-management-frontend
+    runtime: static
+    rootDir: student-management-system
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist/student-management-system/browser
+    envVars:
+      - key: NODE_VERSION
+        value: 20
