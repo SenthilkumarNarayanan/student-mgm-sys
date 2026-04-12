@@ -1,7 +1,5 @@
-const app = require('./app');
+const app = require('./app');  // This already has your routes and CORS config
 const connectDB = require('./config/db');
-const path = require('path');
-const express = require('express');
 const dotenv = require('dotenv');
 
 // Load environment variables
@@ -10,28 +8,17 @@ dotenv.config();
 // Connect to database
 connectDB();
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// ============================================
-// SERVE ANGULAR STATIC FILES
-// ============================================
-
-// Define the path to Angular build files
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error('Error:', err.stack);
-  res.status(500).json({ 
-    error: 'Something went wrong!',
-    message: process.env.NODE_ENV === 'development' ? err.message : undefined
-  });
-});
-
 // ============================================
 // START SERVER
 // ============================================
 const PORT = process.env.PORT || 5000;
+
+// Make sure CORS is applied before starting
+console.log('Starting server with CORS enabled for origins:', [
+  'https://student-mgm-sys-frontend.onrender.com',
+  'http://localhost:4200',
+  'http://localhost:3000'
+]);
 
 app.listen(PORT, () => {
   console.log('====================================');
