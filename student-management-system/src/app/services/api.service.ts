@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000/api/v1';
+  private apiUrl = environment.apiUrl; // Base URL for API
 
   constructor(private http: HttpClient) {}
 
   // Auth APIs
   adminLogin(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/admin/login`, { email, password });
+    return this.http.post(`${this.apiUrl}/api/v1/auth/admin/login`, { email, password });
   }
 
   adminRegister(name: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/admin/register`, { name, email, password });
+    return this.http.post(`${this.apiUrl}/api/v1/auth/admin/register`, { name, email, password });
   }
 
   // Student Register - FIXED: Accept object parameter
@@ -27,64 +28,64 @@ export class ApiService {
     password: string;
     profile?: { phone: string; address: string };
   }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/student/register`, registrationData);
+    return this.http.post(`${this.apiUrl}/api/v1/auth/student/register`, registrationData);
   }
 
   studentLogin(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/student/login`, { email, password });
+    return this.http.post(`${this.apiUrl}/api/v1/auth/student/login`, { email, password });
   }
 
   // Admin APIs
   enrollStudent(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/admin/student_enroll/`, data);
+    return this.http.post(`${this.apiUrl}/api/v1/admin/student_enroll/`, data);
   }
 
   getAllLeaves(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/leaves`);
+    return this.http.get(`${this.apiUrl}/api/v1/admin/leaves`);
   }
 
   updateLeaveStatus(leaveId: string, status: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/admin/leave/${leaveId}`, { status });
+    return this.http.put(`${this.apiUrl}/api/v1/admin/leave/${leaveId}`, { status });
   }
 
   getAdminNotifications(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/notification`);
+    return this.http.get(`${this.apiUrl}/api/v1/admin/notification`);
   }
 
   createNotification(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/admin/notification`, data);
+    return this.http.post(`${this.apiUrl}/api/v1/admin/notification`, data);
   }
 
   deleteNotification(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/admin/notification/${id}`);
+    return this.http.delete(`${this.apiUrl}/api/v1/admin/notification/${id}`);
   }
  markNotificationAsRead(id: string): Observable<any> {
-  return this.http.put(`${this.apiUrl}/student/notifications/${id}/read`, {});
+  return this.http.put(`${this.apiUrl}/api/v1/student/notifications/${id}/read`, {});
 }
   getAllStudents(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/students`);
+    return this.http.get(`${this.apiUrl}/api/v1/admin/students`);
   }
 
   blockStudent(id: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/admin/block/${id}`, {});
+    return this.http.put(`${this.apiUrl}/api/v1/admin/block/${id}`, {});
   }
 
   unblockStudent(id: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/admin/unblock/${id}`, {});
+    return this.http.put(`${this.apiUrl}/api/v1/admin/unblock/${id}`, {});
   }
 
   // Student APIs
   getMyLeaves(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/student/leave`);
+    return this.http.get(`${this.apiUrl}/api/v1/student/leave`);
   }
 
   applyLeave(data: any): Observable<any> {
     console.log('Sending leave data to backend:', data);
-    return this.http.post(`${this.apiUrl}/student/leave`, data);
+    return this.http.post(`${this.apiUrl}/api/v1/student/leave`, data);
   }
 
   getStudentNotifications(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/student/notifications`);
+    return this.http.get(`${this.apiUrl}/api/v1/student/notifications`);
   }
     getNotifications(): Observable<any> {
     return this.getStudentNotifications();
@@ -92,6 +93,6 @@ export class ApiService {
 
 
   updateProfile(data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/student/profile/`, data);
+    return this.http.put(`${this.apiUrl}/api/v1/student/profile/`, data);
   }
 }
