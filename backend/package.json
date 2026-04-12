@@ -7,14 +7,8 @@
   "type": "commonjs",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "erver": "nodemon server.js",
-    "client": "cd ../student-management-system && ng serve",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd ../student-management-system && npm run build",
-    "heroku-postbuild": "cd ../student-management-system && npm install && npm run build",
-
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
     "engines": {
     "node": "20.x",
