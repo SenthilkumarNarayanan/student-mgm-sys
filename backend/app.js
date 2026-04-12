@@ -7,25 +7,12 @@ const studentRoutes = require('./routes/studentRoutes');
 const app = express();
 
 // CORS configuration
-const allowedOrigins = [
-  "https://student-mgm-sys-frontend.onrender.com"
-];
+const cors = require("cors");
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (Postman, mobile apps)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS not allowed"));
-    }
-  },
+  origin: "https://student-mgm-sys-frontend.onrender.com",
   credentials: true
 }));
-
-app.options("*", cors());// Routes
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/admin', adminRoutes);
