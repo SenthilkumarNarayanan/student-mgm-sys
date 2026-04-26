@@ -14,6 +14,8 @@ app.use(cors(
 ));
 
 app.use('/api/v1/auth', authRoutes);
+console.log("admin login url rcvd");
+
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/student', studentRoutes);
 
