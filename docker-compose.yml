@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+   mongo:
+   image: mongo
+   container_name: mongo_db
+   ports:
+     - "27017:27017"
+   volumes:
+     - mongo-data:/data/db
+   
+   backend: ./backend
+   container_name: backend_app
+   ports:
+     - "5000:5000"
+   environtment:
+     - MONGO_URI= 
