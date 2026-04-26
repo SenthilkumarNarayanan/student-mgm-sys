@@ -12,7 +12,7 @@ exports.enrollStudent = async (req, res) => {
         const { name, email } = req.body;
         
         console.log('Enrollment request received:', { name, email });
-
+        
         // Validate required fields
         if (!name || !email) {
             return res.status(400).json({ 
