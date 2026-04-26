@@ -7,18 +7,12 @@ dotenv.config();
 
 // Connect to database
 connectDB();
-
 // ============================================
 // START SERVER
 // ============================================
 const PORT = process.env.PORT || 5000;
 
 // Make sure CORS is applied before starting
-console.log('Starting server with CORS enabled for origins:', [
-  'https://student-mgm-sys-frontend.onrender.com',
-  'http://localhost:4200',
-  'http://localhost:3000'
-]);
 
 app.listen(PORT, () => {
   console.log('====================================');

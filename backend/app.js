@@ -5,14 +5,26 @@ const adminRoutes = require('./routes/adminRoutes');
 const studentRoutes = require('./routes/studentRoutes');
 
 const app = express();
+app.use(express.json());
 
 // CORS configuration
-app.use(cors(
-  { origin: "https://student-mgm-sys-frontend.onrender.com",
-    credentials: true,
-}
-));
+const allowedOrigins = [
+  "http://localhost:4200",
+  "https://student-mgm-sys-frontend.onrender.com"
+];
 
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use('/api/v1/auth', authRoutes);
 console.log("admin login url rcvd");
 
