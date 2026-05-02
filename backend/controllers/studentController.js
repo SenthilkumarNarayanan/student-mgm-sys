@@ -80,7 +80,7 @@ exports.applyLeave = async (req, res) => {
 exports.getMyLeaves = async (req, res) => {
     try {
         const leaves = await Leave.find({ studentId: req.userId }).sort({ createdAt: -1 });
-        res.json({
+        res.status(200).json({
             success: true,
             data: leaves
         });
@@ -94,7 +94,7 @@ exports.getMyLeaves = async (req, res) => {
 exports.getAllNotifications = async (req, res) => {
     try {
         const notifications = await NotificationModel.find().sort({ createdAt: -1 });
-        res.json({
+        res.status(200).json({
             success: true,
             data: notifications
         });

@@ -76,7 +76,7 @@ exports.loginAdmin = async (req, res) => {
             role: admin.role
         };
 
-        res.json({
+        res.status(200).json({
             success: true,
             message: "Login successful",
             token,
@@ -137,11 +137,10 @@ exports.registerStudent = async (req, res) => {
         }
         
         await student.save();
-
         console.log('Student registered successfully:', student.regNo);
         res.status(201).json({
             success: true,
-            message: "Student registered successfully"
+            message: "Student registered successfully",
         });
     } catch (error) {
         console.error('Student registration error:', error);

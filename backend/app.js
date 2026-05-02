@@ -3,6 +3,8 @@ const cors = require("cors");
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const studentRoutes = require('./routes/studentRoutes');
+const swaggerSpec = require("./config/swagger");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 app.use(express.json());
@@ -10,7 +12,8 @@ app.use(express.json());
 // CORS configuration
 const allowedOrigins = [
   "http://localhost:4200",
-  "https://student-mgm-sys-frontend.onrender.com"
+  "https://student-mgm-sys-frontend.onrender.com",
+  "http://localhost:3000"
 ];
 
 app.use(
@@ -25,8 +28,8 @@ app.use(
     credentials: true,
   })
 );
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/v1/auth', authRoutes);
-console.log("admin login url rcvd");
 
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/student', studentRoutes);

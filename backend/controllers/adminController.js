@@ -97,7 +97,7 @@ exports.blockStudent = async (req, res) => {
         student.isBlocked = true;
         await student.save();
         
-        res.json({
+        res.status(200).json({
             success: true,
             message: "Student blocked successfully",
             name: student.name,
@@ -126,7 +126,7 @@ exports.unblockStudent = async (req, res) => {
         student.isBlocked = false;
         await student.save();
         
-        res.json({
+        res.status(200).json({
             success: true,
             message: "Student unblocked successfully",
             regNo: student.regNo,
@@ -167,7 +167,7 @@ exports.updateLeaveStatus = async (req, res) => {
 
         const studentName = updatedLeave.studentId ? updatedLeave.studentId.name : 'Student';
 
-        res.json({
+        res.status(200).json({
             success: true,
             message: `Leave ${status} for ${studentName}`,
             data: updatedLeave
@@ -185,7 +185,7 @@ exports.getAllLeaves = async (req, res) => {
             .populate('studentId', 'name email regNo')
             .sort({ createdAt: -1 });
 
-        res.json({
+        res.status(200).json({
             success: true,
             data: leaves
         });
@@ -236,7 +236,7 @@ exports.deleteNotification = async (req, res) => {
             return res.status(404).json({ message: "Notification not found" });
         }
 
-        res.json({
+        res.status(200).json({
             success: true,
             message: "Notification deleted successfully"
         });
@@ -251,7 +251,7 @@ exports.getAllAdminNotifications = async (req, res) => {
     try {
         const notifications = await NotificationModel.find().sort({ createdAt: -1 });
         
-        res.json({
+        res.status(200).json({
             success: true,
             data: notifications
         });
@@ -265,7 +265,7 @@ exports.getAllAdminNotifications = async (req, res) => {
 exports.getAllStudents = async (req, res) => {
     try {
         const students = await Student.find().select('-password');
-        res.json({
+        res.status(200).json({
             success: true,
             data: students
         });
